@@ -1,10 +1,7 @@
 part of SoeCensusApiLib;
 
 class SoeCensusCollection {
-  Map _jsonMap;
+  Map jsonMap;
   String collectionName;
-  Map data;
-  SoeCensusCollection(String this.collectionName, Map this._jsonMap) {
-    data = _jsonMap[collectionName][0];
-  }
+  SoeCensusCollection(String this.collectionName, Map this.jsonMap);
 }
