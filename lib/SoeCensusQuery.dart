@@ -30,7 +30,7 @@ class SoeCensusQuery {
   
   SoeCensusCollection onJSONResult(var data) {
     String jsonStr = js.context.JSON.stringify(data);
-    return new SoeCensusCollection('$_colName\_list',JSON.decode(jsonStr));
+    return new SoeCensusCollection('$_colName\_list')..data = JSON.decode(jsonStr);
   }
   
   String getUrl() {
