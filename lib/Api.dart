@@ -24,9 +24,9 @@ abstract class Api {
   }
   
   Future get(String path, [Map<String, String> queryParameters]);
-  Future post(String path, JsonObject obj);
-  Future put(String path, JsonObject obj);
-  Future delete(String path, JsonObject obj);
+  Future post(String path, data);
+  Future put(String path, data);
+  Future delete(String path, data);
 }
 
 class CorsApi extends Api {
@@ -38,17 +38,17 @@ class CorsApi extends Api {
     return HttpRequest.getString(uri.toString());
   }
   
-  Future post(String path, JsonObject obj) {
+  Future post(String path, data) {
     uri = uri.replace(path: path);
-    return HttpRequest.postFormData(uri.toString(), obj);
+    return HttpRequest.postFormData(uri.toString(), data);
   }
-  Future put(String path, JsonObject obj) {
+  Future put(String path, data) {
     uri = uri.replace(path: path);
-    return HttpRequest.request(uri.toString(),method: 'PUT', sendData: obj);
+    return HttpRequest.request(uri.toString(),method: 'PUT', sendData: data);
   }
-  Future delete(String path, JsonObject obj) {
+  Future delete(String path, data) {
     uri = uri.replace(path: path);
-    return HttpRequest.request(uri.toString(),method: 'DELETE', sendData: obj);
+    return HttpRequest.request(uri.toString(),method: 'DELETE', sendData: data);
   }
 }
 
@@ -82,13 +82,13 @@ class JsonpApi extends Api {
     document.body.children.add(_script);
   }
   
-  Future post(String path, JsonObject obj) {
+  Future post(String path, data) {
     throw 'Post is not supported by JSONP';
   }
-  Future put(String path, JsonObject obj) {
+  Future put(String path, data) {
     throw 'Put is not supported by JSONP';
   }
-  Future delete(String path, JsonObject obj) {
+  Future delete(String path, data) {
     throw 'Delete is not supported by JSONP';
   }
 }
