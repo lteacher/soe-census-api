@@ -6,10 +6,12 @@ class SoeCensusApi {
   String _serviceId;
   String _format;
   String _basePath;
+  EventSubscriber _events;
   
   SoeCensusApi.ps2(String this._serviceId, {String version: 'v2',String format: 'json'}) {
     _game = 'ps2:$version';
     _format = format;
+    _events = new EventSubscriber('wss://push.planetside2.com/streaming?service-id=s:$_serviceId');
   }
   SoeCensusApi.eq2(String this._serviceId, {String version: 'v2',String format: 'json'}) {
     _game = 'eq2:$version';
@@ -21,7 +23,7 @@ class SoeCensusApi {
   }
   
   String _getBasePath() {
-    return '/${_serviceId != null ? '$_serviceId/' : ''}$_format';
+    return '/${_serviceId != null ? 's:$_serviceId/' : ''}$_format';
   }
   
   Future get(String collection, [Map<String,String> queryParameters]) {
@@ -34,4 +36,7 @@ class SoeCensusApi {
     var result =  _api.get(path, queryParameters);
     return 0;
   }
+  
+  EventSubscriber get events => _events == null ? throw new UnsupportedError('Events are not implemented for $_game') : _events;
+  
 }

@@ -5,8 +5,10 @@ library SoeCensusApiLib;
 import 'dart:async';
 import 'dart:html';
 import 'dart:js';
-import "package:json_object/json_object.dart";
+import 'dart:typed_data';
+import 'dart:convert';
 
 // Specify parts
 part 'Api.dart';
 part 'SoeCensusApi.dart';
+part 'EventSubscriber.dart';

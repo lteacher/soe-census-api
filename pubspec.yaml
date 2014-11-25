@@ -1,5 +1,2 @@
 name: soe_census_api
 description: Sony Census API Classes
-dependencies:
-  jsonp: any
-  json_object: any
