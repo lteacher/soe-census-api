@@ -53,33 +53,43 @@ class CorsApi extends Api {
 }
 
 class JsonpApi extends Api {
-  Completer _callback = new Completer();
-  ScriptElement _script;
+  Map _scripts = new Map(); 
+  Uuid _uuid = new Uuid();
   
   JsonpApi(Uri uri) : super._internal(uri);
-  
+
+  /*
+   * Get results from the specified url and queryParms
+   */
   Future get(String path, [Map<String, String> queryParameters]) {
     if(queryParameters==null) {
       queryParameters = new Map();
     }
     
-    queryParameters.putIfAbsent('callback', () { return 'callbackMethod'; });
+    // Completer to issue for results 
+    var completer = new Completer();
+    
+    // Unique callback
+    String id = ("cb" + _uuid.v1()).replaceAll('-', '');
+
+    queryParameters.putIfAbsent('callback', () { return id; });
     
     uri = uri.replace(path: path,queryParameters: queryParameters);
     
-    context['callbackMethod'] = (JsObject result) {
-      _script.remove();
-      _callback.complete(result);
+    context[id] = (JsObject result) {
+      _scripts[id].remove();
+      completer.complete(result);
     };
     
-    _setContext();
-    return _callback.future;
+    _setContext(id);
+    return completer.future;
   }
   
-  void _setContext() {
-    _script = new Element.tag('script');
-    _script.src = uri.toString();
-    document.body.children.add(_script);
+  void _setContext(var id) {
+    var script = new Element.tag('script');
+    script.src = uri.toString();
+    document.body.children.add(script);
+    _scripts[id] = script;
   }
   
   Future post(String path, data) {

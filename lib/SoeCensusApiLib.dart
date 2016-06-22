@@ -7,6 +7,8 @@ import 'dart:html';
 import 'dart:js';
 import 'dart:typed_data';
 import 'dart:convert';
+import 'package:uuid/uuid.dart';
+
 
 // Specify parts
 part 'Api.dart';

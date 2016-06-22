@@ -31,10 +31,9 @@ class SoeCensusApi {
     return _api.get(path, queryParameters);
   }
   
-  int count(String collection, [Map<String,String> queryParameters]) {
+  Future count(String collection, [Map<String,String> queryParameters]) {
     var path = '/count/$_game/$collection';
-    var result =  _api.get(path, queryParameters);
-    return 0;
+    return _api.get(path, queryParameters); 
   }
   
   EventSubscriber get events => _events == null ? throw new UnsupportedError('Events are not implemented for $_game') : _events;
