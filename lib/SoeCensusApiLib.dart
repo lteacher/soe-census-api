@@ -3,10 +3,14 @@ library SoeCensusApiLib;
 
 // Set imports
 import 'dart:async';
-import "package:js/js.dart" as js;
-import "package:jsonp/jsonp.dart" as jsonp;
+import 'dart:html';
+import 'dart:js';
+import 'dart:typed_data';
 import 'dart:convert';
+import 'package:uuid/uuid.dart';
+
 
 // Specify parts
-part 'SoeCensusQuery.dart';
-part 'SoeCensusCollection.dart';
+part 'Api.dart';
+part 'SoeCensusApi.dart';
+part 'EventSubscriber.dart';

@@ -1,4 +1,4 @@
 name: soe_census_api
 description: Sony Census API Classes
 dependencies:
-  jsonp: any
+  uuid: 0.4.1
